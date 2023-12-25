@@ -1,8 +1,8 @@
 [//]: # (TODO: add description of changes in version)
-## vX
+## 0.0.0
 
 Add repository template
 
-## vX2
+## 0.0.1
 
 Add repository template  
