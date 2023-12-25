@@ -28,7 +28,7 @@ jobs:
         id: version
       - name: changelog
         run: make changelog VERSION=$(go run ./version/version.go)
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: release-changelog
           path: ./CURRENT-CHANGELOG.md
