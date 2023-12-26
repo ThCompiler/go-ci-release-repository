@@ -64,8 +64,8 @@ jobs:
         with:
           name: release-artifacts
           path: |
-            ./bin/*.tar.gz
-            ./bin/*.zip
+            ./${{ env.BIN_DIR }}/*.tar.gz
+            ./${{ env.BIN_DIR }}/*.zip
       - name: clean
         run: make clean
   publish_release:
@@ -96,15 +96,15 @@ jobs:
           tag_name: ${{ needs.prepare_changelog.outputs.version }}
           body_path: ./CURRENT-CHANGELOG.md
           files: |
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-amd64.tar.gz
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-arm64.tar.gz
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-arm.tar.gz
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-386.tar.gz
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.darwin-amd64.tar.gz
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.darwin-arm64.tar.gz
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.windows-amd64.zip
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.windows-arm64.zip
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.windows-arm.zip
-            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}E.windows-386.zip
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.linux-amd64.tar.gz
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.linux-arm64.tar.gz
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.linux-arm.tar.gz
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.linux-386.tar.gz
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.darwin-amd64.tar.gz
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.darwin-arm64.tar.gz
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.windows-amd64.zip
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.windows-arm64.zip
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}.windows-arm.zip
+            ${{ env.BIN_DIR }}/${{ env.BIN_NAME }}E.windows-386.zip
         env:
           GITHUB_TOKEN: ${{ github.token }}

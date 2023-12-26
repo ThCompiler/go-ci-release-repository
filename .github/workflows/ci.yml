@@ -9,6 +9,7 @@ on:
     branches:
       - main
       - dev/*/main
+      - *   # TODO: you can set any required branch to run test an lints
   pull_request:
 
 jobs:
