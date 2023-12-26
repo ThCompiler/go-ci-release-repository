@@ -12,7 +12,7 @@ run:
   # List of build tags, all linters use it.
   # Default: [].
   skip-dirs:
-    - scg/example
+    - version
     - workflow
   modules-download-mode: readonly
   allow-parallel-runners: true

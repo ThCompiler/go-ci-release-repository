@@ -27,10 +27,10 @@ jobs:
       - name: build
         run: make build
       - name: version
-        run: echo "version=$(bash ./workflow/version.sh $(go run ./version/version.go))" >> $GITHUB_OUTPUT
+        run: echo "version=$(bash ./workflow/version.sh $(go run ./version/src/main.go))" >> $GITHUB_OUTPUT
         id: version
       - name: changelog
-        run: make changelog VERSION=$(go run ./version/version.go)
+        run: make changelog VERSION=$(go run ./version/src/main.go)
       - uses: actions/upload-artifact@v4
         with:
           name: release-changelog
