@@ -12,6 +12,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'artifacts' # TODO: delete when add to repository
 
 jobs:
   prepare_changelog:
