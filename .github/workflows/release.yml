@@ -2,6 +2,8 @@ name: Release new version
 
 env:
   GO_VERSION: 1.21
+  BIN_NAME: you_app # TODO: set you app executable name
+  BIN_DIR: bin
 
 permissions:
   contents: write
@@ -39,9 +41,35 @@ jobs:
         run: make clean
     outputs:
       version: ${{ steps.version.outputs.version }}
+  build_release:
+    name: build_release
+    needs: prepare_changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: build artifacts
+        run: |
+          make build-linux VERSION=${{ needs.prepare_changelog.outputs.version }}
+          make build-windows VERSION=${{ needs.prepare_changelog.outputs.version }}
+          make build-darwin VERSION=${{ needs.prepare_changelog.outputs.version }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            ./bin/*.tar.gz
+            ./bin/*.zip
+      - name: clean
+        run: make clean
   publish_release:
     name: publish_release
-    needs: prepare_changelog
+    needs: [prepare_changelog, build_release]
     environment:
       name: app-release
     runs-on: ubuntu-latest
@@ -66,5 +94,16 @@ jobs:
           name: Release ${{ needs.prepare_changelog.outputs.version }}
           tag_name: ${{ needs.prepare_changelog.outputs.version }}
           body_path: ./CURRENT-CHANGELOG.md
+          files: |
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-amd64.tar.gz
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-arm64.tar.gz
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-arm.tar.gz
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.linux-386.tar.gz
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.darwin-amd64.tar.gz
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.darwin-arm64.tar.gz
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.windows-amd64.zip
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.windows-arm64.zip
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}.windows-arm.zip
+            ${{ env.$BIN_DIR }}/${{ env.$BIN_NAME }}E.windows-386.zip
         env:
           GITHUB_TOKEN: ${{ github.token }}
