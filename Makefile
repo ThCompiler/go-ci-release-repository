@@ -1,8 +1,8 @@
 BIN_DIR=bin
 VERSION_PATH=./version/version.go
 PATH_TO_ENTER_POINT=go-project/src   # TODO: set path to main file of you repository
-BIN=you_app  # TODO: set you app executable name
-BIN_WINDOWS=you_app.exe # TODO: set you app executable name
+BIN=you_app# TODO: set you app executable name
+BIN_WINDOWS=you_app.exe# TODO: set you app executable name
 WINDOWS_OS=windows
 LINUX_OS=linux
 MAC_OS=darwin
