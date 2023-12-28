@@ -79,6 +79,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: load-release-artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts
+          path: ./${{ env.BIN_DIR }}
       - name: load-release-changelog
         uses: actions/download-artifact@v4
         with:
