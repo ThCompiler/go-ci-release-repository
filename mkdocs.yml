@@ -15,26 +15,24 @@ theme:
     - navigation.indexes
     - toc.follow
   palette:
-    # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
-      primary: teal
-      toggle:
-        icon: material/brightness-auto
-        name: Set automatic scheme
-
-    # Palette toggle for light mode
-    - scheme: default
-      primary: grey
       toggle:
         icon: material/weather-sunny
-        name: Set light scheme
-
-    # Palette toggle for dark mode
-    - scheme: slate
-      primary: black
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/weather-night
-        name: Set dark scheme
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to system preference
   icon:
     repo: fontawesome/brands/github-alt
 
